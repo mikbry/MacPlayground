@@ -1,24 +1,35 @@
 import Cocoa
 
-struct Input: Decodable {
+struct Input {
     let text: String
+}
+
+extension Input: Decodable {
     enum CodingKeys: String, CodingKey {
         case text
     }
-}
-
-extension Input {
     init(from decoder: Decoder) throws {
-        /* let singleValue = try! decoder.singleValueContainer()
-        print(singleValue) */
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        text = try values.decode(String.self, forKey: .text)
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        text = try container.decode(String.self, forKey: .text)
     }
 }
 
-struct Intent: Decodable {
+struct Intent {
     let input: Input
     let output: String
+}
+
+extension Intent: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case input
+        case output
+    }
+       
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        input = try container.decode(Input.self, forKey: .input)
+        output = try container.decode(String.self, forKey: .output)
+    }
 }
 
 struct Bot: Decodable {
