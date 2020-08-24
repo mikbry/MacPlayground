@@ -5,16 +5,19 @@ struct Input: Decodable {
     enum CodingKeys: String, CodingKey {
         case text
     }
+}
+
+extension Input {
     init(from decoder: Decoder) throws {
-        let singleValue = try! decoder.singleValueContainer()
-        print(singleValue)
+        /* let singleValue = try! decoder.singleValueContainer()
+        print(singleValue) */
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        self.text = try values.decode(String.self, forKey: .text)
+        text = try values.decode(String.self, forKey: .text)
     }
 }
 
 struct Intent: Decodable {
-    let input: Array<Input>
+    let input: Input
     let output: String
 }
 

@@ -1,4 +1,4 @@
 {
     "name": "Bob",
-    "intents": [{ "input": "hello", "output": "hello" }]
+    "intents": [{ "input": { "text": "hello" }, "output": "hello" }]
 }
